@@ -37,13 +37,26 @@ def all_combos(some_list):
 def binary_search(array, element, start, end):
     if start > end:
         return -1
+
     mid = (start + end) // 2
     if element == array[mid]:
         return mid
+
     if element < array[mid]:
-        return binary_search(array, element, start, mid-1)
+        return binary_search(array, element, start, mid - 1)
     else:
-        return binary_search(array, element, mid+1, end)
+        return binary_search(array, element, mid + 1, end)
+
+    # if end >= start:
+    #     mid = (start + end) // 2
+    #     if element == array[mid]:
+    #         return mid
+    #     if element < array[mid]:
+    #         return binary_search(array, element, start, mid-1)
+    #     else:
+    #         return binary_search(array, element, mid+1, end)
+    # else:
+    #     return -1
 
 
 
@@ -104,17 +117,27 @@ for i in range(18):
                 #print("Element not found")
 
             # run binary search on each permutation
-            position_found_at = binary_search(each, i, 0, len(each) - 1)
-            if position_found_at == -1:
-                print(f"this is the permutation{each} and this is the search term {i} and it was not found")
-            else:
-                print(f"this is the permutation{each} and this is the search term {i} and it was found at {position_found_at}")
+
+            # need to sort list first
+            #print(f"I am each: {each}")
+            to_list = list(each)
+            if len(to_list) > 1:
+                pass
+                #to_list.sort()
+            #print(f"I am list: {to_list}")
+            position_found_at = binary_search(to_list, i, 0, len(each) - 1)
+
 
             # append index into list for each length of array
+            if position_found_at == -1:
+                if i == to_list[0]:
+                    #print(f"looks like {i} was at the first entry in {to_list}")
+                    position_found_at = 0
+                else:
+                    pass
+
+            if position_found_at == -1:
+                print(f"this is the permutation{to_list} and this is the search term {i} and it was not found")
+            else:
+                print(f"this is the permutation{to_list} and this is the search term {i} and it was found at {position_found_at}")
             index_found_at.append(position_found_at)
-            # reduce the above list into a set and that is the number of binary trees.
-        print(index_found_at)
-        #print("*"*100)
-
-
-print(binary_search([4,3,2,1],4, 0, 3))
